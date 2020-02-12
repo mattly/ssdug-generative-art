@@ -6,10 +6,10 @@ function mySetup() {
     let pct = r/w
     let circle = {i: circles.length, r}
     let rv = constrain(abs(randomGaussian(0,0.25)),0,1)
-    circle.radius = osc(1, 1, v => map(sin(v),-1,1,1-rv,1+rv) * circle.r)
+    circle.radius = osc(1, 1)(Sin(1-rv,1+rv), Times(circle.r))
     circle.offset = {
-      radius: osc(1, pct, v => sin(v) * circle.r/circle.i),
-      angle: osc(1/(circle.i+1), 1/pct)
+      radius: osc(1, pct)(Sin(-1 * circle.r/circle.i, circle.r/circle.i)),
+      angle: osc(1/(circle.i+1), 1/pct)()
     }
     circle.lit = map(random(),0,1,50*(1-pct),100*(1-pct))
     circles.push(circle)

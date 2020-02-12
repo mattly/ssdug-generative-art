@@ -34,21 +34,33 @@ function draw() {
   myDraw()
 }
 
-function osc(hzStdDev, hzMax, xf) {
-  if (!xf) { xf = (v) => v }
-  const hz = constrain(randomGaussian(0, hzStdDev), -1 * hzMax, hzMax)
-  const offset = random(1)
-  return (time) => xf((TAU * (offset + (time*hz))) % TAU)
+function doXfs(xfs, val) {
+  return xfs.length == 0 ?
+    val :
+    xfs.reduce((acc, xf) => xf(acc), val)
 }
 
-function thetaOsc(hzMax, xf) {
-  if (!xf) { xf = v => v }
+function osc(hzStdDev, hzMax, offsetScale=1) {
+  const hz = constrain(randomGaussian(0, hzStdDev), -1 * hzMax, hzMax)
+  const offset = random(1) * offsetScale
+  return (...xfs) => (time) => doXfs(xfs, (TAU * (offset + (time*hz))) % TAU)
+}
+
+function thetaOsc(hzMax, offsetScale=1) {
   let hz = ceil(random(hzMax))
   if (random([true, false])) { hz = -1 * hz }
-  const offset = random(TAU)
+  const offset = random(TAU) * offsetScale
   console.log(hzMax, hz, offset)
-  return () => xf((offset + (animLoop.theta * hz)) % TAU)
+  return (...xfs) =>
+    () => doXfs(xfs, (offset + (animLoop.theta * hz)) % TAU)
 }
+
+const Times = a => b => a * b
+const Plus = a => b => a + b
+const Mod = b => a => a % b
+const Sin = (bot, top) => v => map(sin(v), -1, 1, bot, top)
+
+
 
 const constantly = (val) => () => val
 
