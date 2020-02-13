@@ -1,7 +1,7 @@
 const circles = []
 
 function mySetup() {
-  // saveGif=true
+  loopDuration = 12
   let r = randomGaussian(w / 15)
   while (r < w * 0.9) {
     let circle = {i: circles.length, r}

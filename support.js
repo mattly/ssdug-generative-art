@@ -1,14 +1,9 @@
-document.write('<script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>')
-document.write('<script src="https://unpkg.com/p5.createloop@0.1.3/dist/p5.createloop.js"></script>')
-document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"></script>')
-document.write('<link rel="stylesheet" href="../main.css" />')
-
-let w = 800
-let h = 800
+let w = 1000
+let h = 1000
 let startTime = Date.now()
 let now = 0
 let saveGif = false
-let loopDuration = 12
+let loopDuration = 0
 let framerate = 24
 let seed = Date.now()
 
@@ -21,10 +16,14 @@ function setup() {
   createCanvas(w, h)
   console.log('setting random seed', seed)
   randomSeed(seed)
-  createLoop({
-    duration: loopDuration,
-    gif: saveGif ? { download: saveGif, loop: 1 } : false,
-  })
+  if (loopDuration > 0) {
+    createLoop({
+      duration: loopDuration,
+      gif: saveGif ? { download: saveGif, loop: 1 } : false,
+    })
+  } else {
+    noLoop()
+  }
 }
 
 let prevTheta = 0
@@ -32,8 +31,10 @@ let prevTheta = 0
 function draw() {
   clear()
   now = (Date.now() - startTime) / 1000
-  if (prevTheta > animLoop.theta) { console.log('loop!') }
-  prevTheta = animLoop.theta
+  if (loopDuration > 0) {
+    if (prevTheta > animLoop.theta) { console.log('loop!') }
+    prevTheta = animLoop.theta
+  }
   myDraw()
 }
 

@@ -1,6 +1,7 @@
 const circles = []
 
 function mySetup() {
+  loopDuration = 1000
   let r = randomGaussian(w / 15)
   while (r < w * 0.9) {
     let pct = r/w

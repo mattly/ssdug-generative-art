@@ -2,8 +2,7 @@ const circles = []
 let minRadius = 0
 
 function mySetup() {
-  // saveGif = true
-  // size(500)
+  loopDuration = 12
   let r = randomGaussian(w / 12)
   const hueBaseVal = random(360)
   const hueBaseSpread = random(120)
