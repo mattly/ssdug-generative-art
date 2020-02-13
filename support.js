@@ -10,6 +10,7 @@ let now = 0
 let saveGif = false
 let loopDuration = 12
 let framerate = 24
+let seed = Date.now()
 
 function size(s) { w = s; h = s; }
 
@@ -18,6 +19,8 @@ function setup() {
   mySetup()
   frameRate(framerate)
   createCanvas(w, h)
+  console.log('setting random seed', seed)
+  randomSeed(seed)
   createLoop({
     duration: loopDuration,
     gif: saveGif ? { download: saveGif, loop: 1 } : false,
