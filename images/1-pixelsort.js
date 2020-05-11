@@ -24,6 +24,8 @@ function mySetup() {
       .chunk(4)                // chunk into r,g,b,a values
       .sortBy(brightness)
       // .sortBy(saturation)
+      // .sortBy(red)
+      // .sortBy(p => red(p) + brightness(p))
 
     sorted = sorted.take(underrun).reverse().concat(sorted.value())
 
