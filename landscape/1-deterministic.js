@@ -157,15 +157,9 @@ function drawGround() {
       // . derived from x/y
       wMod = map(sin(row + col) + cos(phaseY * TAU) + phaseX, -2, 3, 0.33, 3)
 
-      let mode = 'rect'
-
-      switch (mode) {
-        case 'rect': {
-          let lw = colSize * 0.8 * wMod
-          let lh = rowSize * 0.8 * hMod
-          rect(cx - lw / 2, cy - lh / 2, lw, lh)
-        }
-      }
+      let lw = colSize * 0.8 * wMod
+      let lh = rowSize * 0.8 * hMod
+      rect(cx - lw / 2, cy - lh / 2, lw, lh)
     }
   }
 }
