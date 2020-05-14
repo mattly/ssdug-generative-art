@@ -6,6 +6,7 @@ let saveGif = false
 let loopDuration = 0
 let framerate = 24
 let seed = Date.now()
+let threeD = false
 
 function size(s) { w = s; h = s; }
 
@@ -13,9 +14,10 @@ function setup() {
   startTime = Date.now()
   mySetup()
   frameRate(framerate)
-  createCanvas(w, h)
+  createCanvas(w, h, threeD ? WEBGL : P2D)
   console.log('setting random seed', seed)
   randomSeed(seed)
+  noiseSeed(seed)
   if (loopDuration > 0) {
     createLoop({
       duration: loopDuration,
